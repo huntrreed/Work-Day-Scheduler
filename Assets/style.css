@@ -39,7 +39,14 @@ textarea {
   background-color: #ff6961;
   color: white;
 }
-
+.present .current-hour-text {
+  font-style: italic;
+  color: grey;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: small;
+}
 .future {
   background-color: #77dd77;
   color: white;

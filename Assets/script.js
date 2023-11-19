@@ -67,6 +67,7 @@ $(function () {
   
         // Remove any old classes to update new ones based on changed time
         $(this).removeClass('past present future');
+        $(this).find('.current-hour-text').remove();
   
         // Apply new class based on current time
         if (blockHour < currentHour) {
@@ -80,6 +81,35 @@ $(function () {
     }
     // Call the function to update classes
     updateTimeBlockClasses();
+  });
+  //Updating time blocks with events and saving those events to local storage so they can be reloaded later
+  $(function () {
+    function saveEvent(hour, eventText) {
+      localStorage.setItem('event-' + hour, eventText);
+    }
+  
+    // Click event on the save buttonr will save the event info entered into the box
+    $('.saveBtn').click(function () {
+      var hour = $(this).closest('.time-block').attr('id').split('-')[1];
+      var eventText = $(this).siblings('.description').val();
+  
+      // Callback to save the event
+      saveEvent(hour, eventText);
+    });
+  
+//Function for when you come back to the page after closing, the events will be pulled from local storage and still show on the calendar
+    function loadSavedEvents() {
+      $('.time-block').each(function () {
+        var hour = $(this).attr('id').split('-')[1];
+        var savedEvent = localStorage.getItem('event-' + hour);
+        if (savedEvent) {
+          $(this).find('.description').val(savedEvent);
+        }
+      });
+    }
+  
+    // Callback to load any saved events
+        loadSavedEvents();
   });
   
 });

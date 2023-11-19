@@ -30,10 +30,11 @@ $(function () {
     // Callback for the function to display the current day
     displayCurrentDay();
   });
-  
+
  // Function to create time blocks
   $(function () {
     function createTimeBlocks() {
+      //Variables defining the work hours during which things can be scheudled 
       var workHours = ['9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM'];
       
       workHours.forEach(function(hour, index) {
@@ -47,13 +48,38 @@ $(function () {
         // Append the elements to the time block
         timeBlock.append(hourCol, textArea, saveBtn);
   
-        // Append the time block to the container
+        // Appending the time block to the container
         $('.container-lg').append(timeBlock);
       });
     }
-  
-    // Call the function to create time blocks
+    // Callback to create time blocks
     createTimeBlocks();
+  });
+//Updating time blocks to grey in the past, red for the current hour, and green for the future 
+  $(function () {
+    function updateTimeBlockClasses() {
+      // Setting variable for the current time from the day.js file
+      var currentHour = dayjs().hour();
+  
+      // Cycle through each time block seperately so they can all be updated individually 
+      $('.time-block').each(function () {
+        var blockHour = parseInt($(this).attr('id').split('-')[1]);
+  
+        // Remove any old classes to update new ones based on changed time
+        $(this).removeClass('past present future');
+  
+        // Apply new class based on current time
+        if (blockHour < currentHour) {
+          $(this).addClass('past');
+        } else if (blockHour === currentHour) {
+          $(this).addClass('present');
+        } else {
+          $(this).addClass('future');
+        }
+      });
+    }
+    // Call the function to update classes
+    updateTimeBlockClasses();
   });
   
 });

@@ -107,7 +107,6 @@ $(function () {
         }
       });
     }
-  
     // Callback to load any saved events
         loadSavedEvents();
   });

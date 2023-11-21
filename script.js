@@ -1,5 +1,5 @@
 
-  // Function to display the current date in the header of the page once the page is opened.
+  // Function to display the current date in the header of the page once the page is opened. (Looked up the formatting of the Date pull from the day.js file on how to display current day)
   $(function () {
     function displayCurrentDay() {
       var currentDay = dayjs().format('dddd, MMMM D, YYYY');
@@ -8,30 +8,30 @@
     // Callback for the function to display the current day
     displayCurrentDay();
   });
-
- // Function to create time blocks
+ // Function to create time blocks with each hour on the calendar as a variable
   $(function () {
     function createTimeBlocks() {
-      //Variables defining the work hours during which things can be scheudled 
       var workHours = ['9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM'];
-      
+
+
+
       workHours.forEach(function(hour, index) {
-        // variables for each part of the time blocks
+        // variables for each hour to add a time row, an column with the hour listed, a spot to write events, and a save button
         var timeBlock = $('<div>').addClass('row time-block').attr('id', 'hour-' + (index + 9));
-        var hourCol = $('<div>').addClass('col-2 col-md-1 hour text-center py-3').text(hour);
+        var hourCol = $('<div>').addClass('col-1 hour text-center py-3').text(hour);
         var textArea = $('<textarea>').addClass('col-8 col-md-10 description');
         var saveBtn = $('<button>').addClass('btn saveBtn col-2 col-md-1').attr('aria-label', 'save');
         saveBtn.append($('<i>').addClass('fas fa-save'));
   
-        // Appending the elements to the time block
+        // Attaching the hours, text inputs, and save buttons to the time block from line 11
         timeBlock.append(hourCol, textArea, saveBtn);
   
-        // Appending the time block to the container
+        // Appending the time block to the outer container that the whole calendar is in
         $('.container-lg').append(timeBlock);
       });
     }
-    // Callback to create time blocks
     createTimeBlocks();
+
   });
 //Updating time blocks to different classes: grey for the past, red for the current hour, and green for the future 
   $(function () {
@@ -39,7 +39,7 @@
       // Setting variable for the current time from the day.js file
       var currentHour = dayjs().hour();
   
-      // Cycle through each time block seperately so they can all be updated individually 
+      // Cycle through each time block seperately so they can all be updated individually - the id attribute selects the number instead of the hour label and the parse to make the variables numbers instead of strings so they can work with the day.js file
       $('.time-block').each(function () {
         var blockHour = parseInt($(this).attr('id').split('-')[1]);
   
@@ -47,7 +47,7 @@
         $(this).removeClass('past present future');
         $(this).find('.current-hour-text').remove();
   
-        // Apply new class based on current time
+        // Apply new class based on current time (using 'this' to refer to each seperate time block)
         if (blockHour < currentHour) {
           $(this).addClass('past');
         } else if (blockHour === currentHour) {
@@ -61,9 +61,9 @@
     updateTimeBlockClasses();
   });
   //Updating time blocks with events and saving those events to local storage so they can be reloaded later
-  $(function () {
+  (function() {
     function saveEvent(hour, eventText) {
-      localStorage.setItem('event-' + hour, eventText);
+      localStorage.setItem('event- ', eventText);
     }
   
     // Click event on the save button will save the event info entered into the box
@@ -76,17 +76,17 @@
     });
   
 //Function for when you come back to the page after closing, the events will be pulled from local storage and still show on the calendar
-    function loadSavedEvents() {
-      $('.time-block').each(function () {
+    function displaySavedEvents() {
+      $('.time-block').each(function() {
         var hour = $(this).attr('id').split('-')[1];
-        var savedEvent = localStorage.getItem('event-' + hour);
+        var savedEvent = localStorage.getItem('event-', hour);
         if (savedEvent) {
           $(this).find('.description').val(savedEvent);
         }
       });
     }
     // Callback to load any saved events
-        loadSavedEvents();
+        displaySavedEvents();
   });
   
 

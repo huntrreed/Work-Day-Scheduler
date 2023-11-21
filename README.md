@@ -8,6 +8,10 @@ In order to help keep track of time throughout the day, there is also a built in
 
 Here is a following example of what the scheduler looks like. 
 
-And if you want to add an event to a certian hour -- here is an example of how to do so! Just click the box, write your text, and click the blue save button to the right side of the time block 
+![Screenshot of the Workday Scheduler App.](./Assets/Images/Screenshot%202023-11-20%20at%205.23.35 PM.png)
 
+
+And if you want to add an event to a certian hour -- here is an example of how to do so! Just click the box, write your text, and click the blue save button to the right side of the time block as shown in the image below! 
+
+![Screenshot of the Workday Scheduler App when clicking into an hour box to schedule a task](./Assets/Images/Screenshot%202023-11-20%20at%205.24.03 PM.png)
 

@@ -52,6 +52,7 @@ textarea {
   color: white;
 }
 
+/*Added styling to the current day so it stood out more*/
 .saveBtn {
   border-left: 1px solid black;
   border-top-right-radius: 15px;
